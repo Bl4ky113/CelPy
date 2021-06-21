@@ -1,8 +1,11 @@
 # Made By Bl4ky113
 
-import androidhelper as android
+import androidhelper
+droid = androidhelper.Android()
 
-saludo = android.notify("Hello", "Hello You little World");
+batteryPercent = droid.batteryGetLevel()
+
+print(batteryPercent)
 
 
 

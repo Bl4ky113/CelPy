@@ -1,2 +1,5 @@
 # Ignore the pywhatkit files
 whatpy/pywhatkit_dbs.txt
+
+# Ignore AndroidHelper-lib cache
+andpy/.last_tmp.py

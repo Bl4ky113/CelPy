@@ -14,7 +14,7 @@ while conditional:
 
   if response == "level":
     batteryData = list(droid.batteryGetLevel())
-    batteryData = batteryData[1] + "%"
+    batteryData = batteryData[1], "%"
     batteryData_Name = "nivel"
 
   elif response == "plug":
@@ -42,7 +42,7 @@ while conditional:
     }
 
     batteryData = list(droid.batteryGetStatus())
-    batteryData = batteryData[1]
+    batteryData = str(batteryData[1])
     batteryData_Name = "estatus"
 
     if batteryData in batteryResults.keys():
@@ -59,7 +59,7 @@ while conditional:
     }
 
     batteryData = list(droid.batteryGetHealth())
-    batteryData = batteryData[1]
+    batteryData = str(batteryData[1])
     batteryData_Name = "estado de salud"
 
     if batteryData in batteryResults.keys():
@@ -74,12 +74,12 @@ while conditional:
     batteryData = list(droid.batteryGetTemperature())
     batteryData = list(str(batteryData[1]))
     batteryData.insert(-1, ".")
-    batteryData = "".join(batteryData) + "°C"
+    batteryData = "".join(batteryData), "°C"
     batteryData_Name = "grado de temperatura"
 
   elif response == "volt":
     batteryData = list(droid.batteryGetVoltage())
-    batteryData = batteryData[1] + "mv"
+    batteryData = batteryData[1], "mv"
     batteryData_Name = "voltaje"
 
   elif response == "close":

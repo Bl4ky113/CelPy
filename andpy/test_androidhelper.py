@@ -4,7 +4,8 @@ import androidhelper
 
 droid = androidhelper.Android()
 
-mensage = droid.notify("Hello", "Hello Android World")
+droid.notify("Hello", "Hello Android World")
+droid.makeToast("Hello Android World")
 
 
 

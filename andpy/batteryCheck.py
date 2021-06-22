@@ -13,31 +13,73 @@ while conditional:
   droid.batteryStartMonitoring()
 
   if response == "level":
-    batteryData = droid.batteryGetLevel()
+    batteryData = list(droid.batteryGetLevel())
+    batteryData = batteryData[1] + "%"
     batteryData_Name = "nivel"
 
   elif response == "plug":
-    batteryData = droid.batteryGetPlugType()
+    batteryResults = {
+      "-1": "desconocido",
+      "0": "desconectado",
+      "1": "conectado a AC",
+      "2": "conectado a USB"
+    }
+
+    batteryData = list(droid.batteryGetPlugType())
+    batteryData = str(batteryData[1])
     batteryData_Name = "Plug Micro USB"
 
+    if batteryData in batteryResults.keys():
+      batteryData = batteryResults.get(batteryData)
+
   elif response == "status":
-    batteryData = droid.batteryGetStatus()
+    batteryResults = {
+      "1": "desconocido",
+      "2": "cargando",
+      "3": "descargando",
+      "4": "no cargando",
+      "5": "completa"
+    }
+
+    batteryData = list(droid.batteryGetStatus())
+    batteryData = batteryData[1]
     batteryData_Name = "estatus"
 
+    if batteryData in batteryResults.keys():
+      batteryData = batteryResults.get(batteryData)
+
   elif response == "health":
-    batteryData = droid.batteryGetHealth()
+    batteryResults = {
+      "1": "desconocido",
+      "2": "bien",
+      "3": "sobrecalentado",
+      "4": "muerta",
+      "5": "sobre voltaje",
+      "6": "error sin especificar"
+    }
+
+    batteryData = list(droid.batteryGetHealth())
+    batteryData = batteryData[1]
     batteryData_Name = "estado de salud"
 
+    if batteryData in batteryResults.keys():
+      batteryData = batteryResults.get(batteryData)
+
   elif response == "tech":
-    batteryData = droid.batteryGetTechnology()
+    batteryData = list(droid.batteryGetTechnology())
+    batteryData = batteryData[1]
     batteryData_Name = "dato tecnologíco"
 
   elif response == "temp":
-    batteryData = droid.batteryGetTemperature()
+    batteryData = list(droid.batteryGetTemperature())
+    batteryData = list(str(batteryData[1]))
+    batteryData.insert(-1, ".")
+    batteryData = "".join(batteryData) + "°C"
     batteryData_Name = "grado de temperatura"
 
   elif response == "volt":
-    batteryData = droid.batteryGetVoltage()
+    batteryData = list(droid.batteryGetVoltage())
+    batteryData = batteryData[1] + "mv"
     batteryData_Name = "voltaje"
 
   elif response == "close":

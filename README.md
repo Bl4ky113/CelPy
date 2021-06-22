@@ -1,16 +1,15 @@
-# CelPy
+# CellPy
 
 ## Requirements:
 - _pywhatkit_ for whatsapp programs.
 
 
-## ¿Qué es CelPy?
+## ¿Qué es CellPy?
 
-CelPy o Cellphone Python, son diferentes ejercicios que voy a hacer para hacer diferentes cosas cómo enviar mensajes, tomar fotos y cosas así usando Python. 
-Esto lo hago aprovechando que se puede usar una terminal Shell en el celular.
+CellPy o Cellphone Python, son diferentes ejercicios que voy a hacer para hacer diferentes cosas cómo enviar mensajes, tomar fotos y cosas así usando Python, principalmente ejecutados para y desde el celular. 
 
 ## Trabajos hechos:
 
 Por ahora estoy haciendo estos trabajos:
 
-- [] Mandar mensajes con _pywhatkit_ por Whatsapp a una persona.
+- [X] Lograr Instalar apropiadamente una Terminall Shell para el Celular.

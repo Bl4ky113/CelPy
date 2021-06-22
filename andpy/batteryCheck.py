@@ -6,6 +6,9 @@ droid = androidhelper.Android()
 conditional = True
 
 while conditional:
+  batteryData = ""
+  batteryData_Name = ""
+
   response = input("Ingrese que Información quiere ver: ")
   droid.batteryStartMonitoring()
 
@@ -42,9 +45,22 @@ while conditional:
     droid.batteryStopMonitoring()
 
   elif response == "help":
-    print("fuck u")
+    message = [
+      "Ingresa 'level' para ver el % de tu batería\n", 
+      "Ingresa 'plug' para ver el estado del plug Micro USB\n", 
+      "Ingresa 'status' para ver el estado de tu bateria\n", 
+      "Ingresa 'health' para ver el estado de salud de tu bateria\n", 
+      "Ingresa 'tech' para ver la tecnologia de tu bateria\n",
+      "Ingresa 'temp' para ver la temperatura de tu celular\n",
+      "Ingresa 'volt' para ver el voltaje de tu celular\n",
+      "Ingresa 'close' para terminar el programa\n"
+    ]
+    print("".join(message))
 
   else: 
     print("Opción no aceptada, intenta escribir 'help' para ver las opciones disponibles")
-  
-  print("El", batteryData_Name ,"de la Bateria es de: ", batteryData)
+
+  if conditional == True and batteryData != "" or batteryData_Name != "":  
+    print("El", batteryData_Name ,"de la Bateria es de: ", batteryData)
+
+print("Hasta luego ;)")

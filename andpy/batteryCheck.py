@@ -7,6 +7,7 @@ conditional = True
 
 while conditional:
   response = input("Ingrese que Información quiere ver: ")
+  droid.batteryStartMonitoring()
 
   if response == "level":
     batteryData = droid.batteryGetLevel()
@@ -38,6 +39,7 @@ while conditional:
 
   elif response == "close":
     conditional = False
+    droid.batteryStopMonitoring()
 
   elif response == "help":
     print("fuck u")

@@ -15,10 +15,35 @@ def getBtLocalName():
   btLocalName = str(btLocalName[1])
   return btLocalName
 
+# Get the Bluetooth State
+def getBtState(type = "bool"):
+  btState = ""
+  if type == "bool":
+    if droid.checkBluetoothState(): 
+      btState = True
+    else:
+      btState = False
+
+  elif type == "str":
+    if droid.checkBluetoothState():
+      btState = "Enabled"
+    else: 
+      btState = "Disabled"
+
+  elif type == "number":
+    if droid.checkBluetoothState():
+      btState = 1
+    else:
+      btState = 0
+  return btState
+
 # Show Bluetooth Name of the Device
-def showBtLocalData():
+def showBtLocalData(showName, showBtState):
   print("|".center(45, "="), "\n")
-  print("Device's Name:  ", getBtLocalName(), "\n")
+  if showName: print("Device's Name:  ", getBtLocalName(), "\n")
+  else: pass
+  if showBtState: print("Bluetooth State:  ", getBtState("str"), "\n")
+  else: pass
   print("|".center(45, "="))
 
 # Change Bluetooth Name of the Device
@@ -50,14 +75,20 @@ print("An Bluetooth example of the uses of Sl4A with Bluetooth on Android OS\n\n
 print("//Made By Bl4ky113".center(45), "\n")
 print("|||".center(45, "="))
 
-showBtLocalData()
+showBtLocalData(True, True)
 
 """ Main Menu """
 while True:
   command = input("Enter a Command:  ")
 
   if command == "show data":
-    showBtLocalData()
+    showBtLocalData(True, True)
+
+  if command == "show name":
+    showBtLocalData(True, False)
+
+  if command == "show btstate":
+    showBtLocalData(False, True)
 
   if command == "change name":
     changeBTLocalName(getBtLocalName())
@@ -65,6 +96,8 @@ while True:
   if command == "close":
     break
 
-print("".center(45, "="), "\n", "".center(45, "-"))
+print("".center(45, "="))
+print("".center(45, "-"),)
 print("See you later ;)".center(45, "="))
-print("".center(45, "-"), "\n", "".center(45, "="))
+print("".center(45, "-"))
+print("".center(45, "="))

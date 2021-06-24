@@ -3,12 +3,6 @@
 import androidhelper
 droid = androidhelper.Android()
 
-# Check Active connections with Bluetooth
-if droid.bluetoothActiveConnections():
-  btConectedDevice = droid.bluetoothGetConectedDeviceName()
-else: 
-  btConectedDevice = False
-
 # Get the Bluetooth Name of the Device
 def getBtLocalName():
   btLocalName = list(droid.bluetoothGetLocalName())
@@ -16,6 +10,7 @@ def getBtLocalName():
   return btLocalName
 
 # Get the Bluetooth State
+# Can return the state in bool or string
 def getBtState(type = "bool"):
   btState = ""
   if type == "bool":
@@ -29,22 +24,47 @@ def getBtState(type = "bool"):
       btState = "Enabled"
     else: 
       btState = "Disabled"
-
-  elif type == "number":
-    if droid.checkBluetoothState():
-      btState = 1
-    else:
-      btState = 0
   return btState
 
-# Show Bluetooth Name of the Device
-def showBtLocalData(showName, showBtState):
-  print("|".center(45, "="), "\n")
-  if showName: print("Device's Name:  ", getBtLocalName(), "\n")
-  else: pass
-  if showBtState: print("Bluetooth State:  ", getBtState("str"), "\n")
-  else: pass
-  print("|".center(45, "="))
+# Get the Bluetooth Connections Data
+# If there's any, get their name and ID
+def getConnections():
+  if getBtState("bool"):
+    conectionData = []
+    conectionState = ""
+    print(droid.bluetoothActiveConnections())
+    if droid.bluetoothActiveConnections():
+      conectionState = True
+      conectionData.append(conectionState)
+
+      # Aparently this doesn't work in my device, but it's a problem of the Library, so I can't do anything about it
+      conectionDevice = droid.bluetoothGetConnectedDeviceName()
+    else: 
+      conectionState = False
+
+    return conectionData
+  else: 
+    print("Please turn on your Bluetooth")
+    pass
+
+def getScanState():
+  posibleStates = {
+    "-1": "The Bluetooth is Disabled",
+    "0": "The Device is non discoverable and non conectable",
+    "1": "The Device is conectable, but non discoverable",
+    "2": "The Device is descoverable, but non conectable (?",
+    "3": "The Device is conectable and discoverable"
+  }
+
+  scanState = list(droid.bluetoothGetScanMode())
+  scanState = str(scanState[1])
+
+  if scanState in posibleStates.keys():
+    scanState = posibleStates.get(scanState)
+  else: 
+    scanState = "ERROR"
+  
+  return scanState
 
 # Change Bluetooth Name of the Device
 def changeBTLocalName(localName): 
@@ -59,6 +79,18 @@ def changeBTLocalName(localName):
       changeBTLocalName(localName)
   else:
     pass
+
+# Show Bluetooth Name of the Device
+# Choose which info will be shown to the user
+def showBtLocalData(showName = False, showBtState = False, showScanState = False):
+  print("|".center(45, "="), "\n")
+  if showName: print("Device's Name:  ", getBtLocalName(), "\n")
+  else: pass
+  if showBtState: print("Bluetooth State:  ", getBtState("str"), "\n")
+  else: pass
+  if showScanState: print("Scan State:  ", getScanState(), "\n")
+  else: pass
+  print("|".center(45, "="))
 
 """ Start the Program """
 
@@ -82,13 +114,19 @@ while True:
   command = input("Enter a Command:  ")
 
   if command == "show data":
-    showBtLocalData(True, True)
+    showBtLocalData(True, True, True)
 
   if command == "show name":
-    showBtLocalData(True, False)
+    showBtLocalData(showName = True)
 
   if command == "show btstate":
-    showBtLocalData(False, True)
+    showBtLocalData(showBtState = True)
+
+  if command == "show btconections":
+    getConnections()
+
+  if command == "show scanstate":
+    showBtLocalData(showScanState = True)
 
   if command == "change name":
     changeBTLocalName(getBtLocalName())

@@ -9,15 +9,20 @@ if droid.bluetoothActiveConnections():
 else: 
   btConectedDevice = False
 
-# Get and show Bluetooth Name of the Device
-def showBtLocalData():
+# Get the Bluetooth Name of the Device
+def getBtLocalName() -> str:
   btLocalName = list(droid.bluetoothGetLocalName())
   btLocalName = str(btLocalName[1])
+  return btLocalName
+
+# Show Bluetooth Name of the Device
+def showBtLocalData():
 
   print("|".center(45, "="), "\n")
-  print("Device's Name:  ", btLocalName, "\n")
+  print("Device's Name:  ", getBtLocalName(), "\n")
   print("|".center(45, "="))
 
+# Change Bluetooth Name of the Device
 def changeBTLocalName(localName = ""): 
   answer = input("You want to change the Device's name? (y/n)")
   if answer.casefold() == "y" or answer.casefold() == "yes":
@@ -45,3 +50,12 @@ print("//Made By Bl4ky113".center(45), "\n")
 print("|||".center(45, "="))
 
 showBtLocalData()
+
+""" Main Menu """
+while True:
+  print("".center(45, "="), "\n")
+  command = input("Enter a Command:  ")
+  print("".center(45, "="), "\n")
+
+  if command.casefold == "change name":
+    changeBTLocalName(getBtLocalName())

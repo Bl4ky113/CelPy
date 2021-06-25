@@ -32,17 +32,18 @@ def getConnections():
   if getBtState("bool"):
     conectionData = []
     conectionState = ""
-    print(droid.bluetoothActiveConnections())
-    if droid.bluetoothActiveConnections():
-      conectionState = True
-      conectionData.append(conectionState)
 
-      # Aparently this doesn't work in my device, but it's a problem of the Library, so I can't do anything about it
-      conectionDevice = droid.bluetoothGetConnectedDeviceName()
-    else: 
-      conectionState = False
+    btConectionState = list(droid.bluetoothActiveConnections()) # This thing return Nothing...
+    btConectionState = str(btConectionState[1])
 
-    return conectionData
+    # if droid.bluetoothActiveConnections():
+    #   conectionState = True
+    #   conectionData.append(conectionState)
+
+    #   # Aparently this doesn't work in my device, but it's a problem of the Library, so I can't do anything about it
+    #   # conectionDevice = droid.bluetoothGetConnectedDeviceName()
+    # else: 
+    #   conectionState = False
   else: 
     print("Please turn on your Bluetooth")
     pass
@@ -82,7 +83,7 @@ def changeBTLocalName(localName):
 
 # Show Bluetooth Name of the Device
 # Choose which info will be shown to the user
-def showBtLocalData(showName = False, showBtState = False, showScanState = False):
+def showBtLocalData(showName = False, showBtState = False, showScanState = False,):
   print("|".center(45, "="), "\n")
   if showName: print("Device's Name:  ", getBtLocalName(), "\n")
   else: pass
@@ -107,7 +108,7 @@ print("An Bluetooth example of the uses of Sl4A with Bluetooth on Android OS\n\n
 print("//Made By Bl4ky113".center(45), "\n")
 print("|||".center(45, "="))
 
-showBtLocalData(True, True)
+showBtLocalData(True, True, True)
 
 """ Main Menu """
 while True:
@@ -116,23 +117,41 @@ while True:
   if command == "show data":
     showBtLocalData(True, True, True)
 
-  if command == "show name":
+  elif command == "show name":
     showBtLocalData(showName = True)
 
-  if command == "show btstate":
+  elif command == "show btstate":
     showBtLocalData(showBtState = True)
 
-  if command == "show btconections":
-    getConnections()
+  elif command == "show btconections":
+    print("Srry This command isn't available")
 
-  if command == "show scanstate":
+  elif command == "show scanstate":
     showBtLocalData(showScanState = True)
 
-  if command == "change name":
+  elif command == "change name":
     changeBTLocalName(getBtLocalName())
 
-  if command == "close":
+  elif command == "close":
     break
+
+  elif command == "help":
+    helpArr = [
+      "Commands:".center(45, " "),
+      "\n",
+      "show data: Show all the device's data\n",
+      "show name: Show the device's name\n",
+      "show btstate: Show the device's Bluetooth State\n",
+      "show scanstate: Show the device's Scan State\n",
+      "change name: Changes the device's name\n",
+      "close: Finish the program\n"
+    ]
+    print("".center(45, "="), "\n")
+    print("".join(helpArr))
+    print("\n", "".center(45, "="))
+
+  else:
+    print("That's not a command, you can get help with the 'help' command")
 
 print("".center(45, "="))
 print("".center(45, "-"),)

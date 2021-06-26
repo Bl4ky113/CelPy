@@ -35,5 +35,5 @@ void loop() {
       digitalWrite(led, HIGH);
       break;
   }
-  delay(5000);
+  delay(1500);
 }
